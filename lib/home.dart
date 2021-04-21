@@ -15,31 +15,21 @@ class _HomePageState extends State<HomePage> {
   final List<BottomBarConfig> _bottomBarConfigs = [
     BottomBarConfig(
       matcher: 'feed',
-      location: (state) =>
-          SampleLocation(state, title: 'Feed', blueprint: '/feed/:id'),
+      location: (state) => FeedLocation(state),
       label: 'Feed',
       icon: Icons.article,
     ),
     BottomBarConfig(
       matcher: 'warnings',
-      location: (state) =>
-          SampleLocation(state, title: 'Warnings', blueprint: '/warnings/:id'),
+      location: (state) => WarningsLocation(state),
       label: 'Warnings',
       icon: Icons.new_releases,
     ),
     BottomBarConfig(
       matcher: 'search',
-      location: (state) =>
-          SampleLocation(state, title: 'Search', blueprint: '/search/:id'),
+      location: (state) => SearchLocation(state),
       label: 'Search',
       icon: Icons.search,
-    ),
-    BottomBarConfig(
-      matcher: 'settings',
-      location: (state) =>
-          SampleLocation(state, title: 'Settings', blueprint: '/settings/:id'),
-      label: 'Settings',
-      icon: Icons.settings,
     ),
   ];
 
@@ -49,7 +39,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    print('init');
     for (var index = 0; index < _bottomBarConfigs.length; index++) {
       if (widget.beamState.uri.path
           .contains(_bottomBarConfigs[index].matcher)) {
@@ -61,14 +50,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _onPageChange(int index) {
-    print('_onPageChange');
-    print(widget.beamState.uri);
     setState(() => _currentBottomNavIndex = index);
-    _bottomBarConfigs[_currentBottomNavIndex].updateRoute();
+    _bottomBarConfigs[index].updateRoute();
   }
 
   void _onBottomNavChange(int index) {
-    print('_onBottomNavChange');
     _onPageChange(index);
     _pageController.jumpToPage(index);
   }

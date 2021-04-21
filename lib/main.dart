@@ -14,12 +14,8 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       routeInformationParser: BeamerRouteInformationParser(),
       routerDelegate: BeamerRouterDelegate(
-        initialPath: '/',
-        locationBuilder: (state) => BeamerLocationBuilder(
-          beamLocations: [
-            HomeLocation(state),
-          ],
-        ).call(state),
+        initialPath: '/feed',
+        locationBuilder: (state) => HomeLocation(state),
       ),
     );
   }
